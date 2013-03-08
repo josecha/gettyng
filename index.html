@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>gettyng.com</title>
+<link rel="shortcut icon" href="images/favi.ico" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+  <!-- Envio de sms prueba--> 
+<link rel="stylesheet" type="text/css" href="css/nuevo.css"> 
+<!--Ayuda llenar campos--> 
+<link rel="stylesheet" type="text/css" href="css/tipsy.css" media="screen, projection">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="js/cufon-yui.js" type="text/javascript"></script>
+<script src="js/font.js" type="text/javascript"></script>
+<script src="js/cufon-config.js" type="text/javascript"></script>
+
+
+</head>
+
+<body>
+
+<div class="section">
+<div id="header" class="header">
+  <div class="headerimage"><img src="images/logo.png"/></div>
+    <div class="topMenuContainer"> 
+		<div class="topMenutext">
+			<h1 class="title"><a href="logeado/?login&oauth_provider=facebook">Iniciar sesi√≥n</a></h1>
+		</div>			
+        <div class="topMenuLinks">
+            <form id="login" >
+            <div id="newAlign">
+                
+					<a href="logeado/?login&oauth_provider=facebook"><img src="logeado/images/fb_login.png" heigh="70" width="70" alt="login"></a> <br />
+			</div>
+			</form>
+        </div>
+	</div>
+</div></div>
+
+<div id="container" class="container">
+ <div id="envia" class="a_envio">
+<div class="envio_i">   <h2 class="title">Env√≠a un mensaje gratis</h2>   
+			Tienes derecho a 3 mensajes diarios, si deseas enviar m√°s mensajes, reg√≠strate con nosotros es muy f√°cil.<br><br>
+        	<form name="formulario" method="post" action="" id="formulario">
+  <div id="Message" style="visibility: hidden; top: 205px; left: 240px; position: absolute; width: 200px; height: 115px; background-color: rgb(0, 0, 0); opacity: 0.8;"><p align="center"><input id="close" value="Aceptar" style="border: 0pt none;" onclick="Close('ddlProvider')" type="button"></p></div> 
+       <table> 
+
+              <tbody>
+              <tr> 
+              
+                <td  style="width: 80px;">De:</td> 
+                <td  style="width: 150px;"><input id="nombre" maxlength="10" style="width: 140px;" type="text"  onkeypress="return letras(event)" title="Escribe tu nombre para que te identifique la persona a quien se lo envias"></td> 
+              </tr> 
+              <tr> 
+               <td  style="width: 80px;">N√∫mero:</td> 
+                <td  style="width: 150px;"><input id="txtNumber" maxlength="10" style="width: 140px;" type="text" onkeypress="return soloNumeros(event)"  title="El n√∫mero debe ser de Colima. Ejemplo: 3121234567"></td> 
+              </tr> 
+               <tr> 
+                <td  style="width: 80px;">Mensaje:</td> 
+                <td > 
+                    Caracteres (<input id="counterchar"  name="result" value="0" readonly="readOnly" tabindex="-1" class="counter" type="text">/<input id="maxchar" class="counter" value="100" readonly="readOnly" tabindex="-1" maxlength="3" type="text">)</td> 
+              </tr> 
+              <tr> 
+                <td  colspan="2" style="width: 225px;">
+                <textarea id="txtMessage" name="text" style="width: 225px; height: 73px;"   onkeydown="contar('formulario','text')" onkeyup="contar('formulario','text')" maxlength="100"></textarea>
+                
+                </td> 
+              </tr> 
+              <tr> 
+                  <td colspan="2" align="center"><input onclick="EnviarMensaje()" id="send" value="Enviar"  type="button" class="cufow" > 
+                  </td> 
+              </tr> 
+          </tbody></table> 
+              <label></label> 
+  </form>   
+              
+ </div> </div>
+  <div id="messagesBlock"></div>
+<div id="messagesLoading">
+	<table width="100%" style="height: 100%">
+		<tbody><tr>
+			<td align="center" valign="middle">
+                <table id="messagesContainer" class="formularioMessagesBlock" border="0" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <th align="left">
+
+                            <div id="loader_header"></div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="fondo_resaltado">
+                            <div id="loader_contenedor" class="loader_contenedor">
+                            	<div id="loader_info"></div>
+                            	
+                            	<div id="publicidadB">
+									
+									<div><img src="common/imagen.php"  id="imagen"  width="292" height="250" alt="" title="" border="0"></a>
+
+									
+
+                                </div>
+                                
+                            </div>
+                        </td>
+                    </tr>
+                </tbody></table>
+			</td>
+		</tr>
+	</tbody></table>
+	  <iframe id="iframe_oculto" scrolling="no" frameborder="0" style="width: 0; height:0; position:absolute; top:0px; left:0px; display:none; visibility: hidden;"></iframe> 
+
+</div>
+  
+ <div id="muro" class="b_envio">
+	<div class="envio_i">
+		<h2 class="title">¬øQu√© es Gettyng?</h2> 
+			<span class="cufon">Gettyng</span> es la nueva forma de: 
+			<ul class="special"> 
+				<li>Mantente en contacto con tus amigos</li> 
+				<li>Enviar SMS gratis</li> 
+				<li>Ordenar t√∫ comida por internet (pr√≥ximamente)</li> 				
+			</ul> 
+			<p>Accede  a nuestra p√°gina usando tu usuario de  Facebook.  Si a√∫n tienes preguntas revisa nuestra secci√≥n de dudas.</p>  <br>
+				<p><img src="images/g_image.jpg"></p>
+	  </div>
+  </div>
+                        
+ <div id="gritalo" class="c_envio"> 
+	<div class="envio_i">  
+    <h2 class="title">Shoutbox</h2> 
+		<div id="contentarea">
+					<form method="post" id="form"> 
+				<label class="cufonblue">Nick</label> 
+				<input class="txt_a" id="nick" type="text" MAXLENGTH="10" /> 
+				<input class="cufow" id="send" type="submit" value="Dilo" />
+				<br>
+				<img src="images/shoutit.jpg">
+				<input class="txt_b" id="message" type="text" MAXLENGTH="35" /> 
+				<div> </div>
+			</form> 
+			<div id="container"> 	
+				<span class="clear"></span> 
+				<div class="content"> 			
+					<div id="loading"><img src="images/loading.gif" heigh="30" width="30" alt="cargando..." /></div> 
+					<ul> 
+					</ul> 
+				</div> 
+			</div>
+
+		</div>
+	</div>
+</div>
+ </div>
+
+<div id="footer" class="footer"> <ul>
+        <li id="copyright">Copyrigth &copy; 2011. <b>gettyng.com</b></li>
+        <li><a href="contacto.html">Cont√°ctanos</a></li>
+        <li><a href="faq.html">¬øDudas?</a></li>
+        <li><a href="terminos.html">T√©rminos de uso</a></li>
+      </ul> 
+</div> 
+ 
+  
+ <!-- Envio de sms prueba--> 
+<script src="js/nuevof.js" type="text/javascript"></script>  
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="js/jquery.tipsy.js" type="text/javascript"></script>  
+ <!--Publicidad duracion--> 
+<script type="text/javascript"> 
+	var SMS_DURACION_MOSTRAR_PUBLICIDAD	= 10000;
+	var SMS_DURACION_MOSTRAR_MENSAJES		= 5000;
+	</script> 
+ 
+ 	</script>   
+ <!--Contador--> 
+<script language="javascript"> 
+window.onload = function(){
+	var selects = document.getElementsByTagName("textarea");
+	for (var i = 0; i < selects.length; i++) { 
+		if(selects[i].getAttribute("maxlength") > 0){
+			selects[i].onkeydown = function(){
+                            if (this.value.length > this.getAttribute("maxlength")) 
+                                this.value = this.value.substring(0, this.getAttribute("maxlength"));
+                        }
+                        selects[i].onblur = function(){
+                            if (this.value.length > this.getAttribute("maxlength")) 
+                                this.value = this.value.substring(0, this.getAttribute("maxlength"));
+                        }
+		}
+	}
+}
+</script> 
+<script type='text/javascript'> 
+    $(function() {
+      $('#nombre[title]').tipsy({trigger:'focus', gravity: 'w', fade: true});
+    });
+    $(function() {
+      $('#txtNumber[title]').tipsy({trigger:'focus', gravity: 'w', fade: true});
+    });
+   
+</script> 
+<script type="text/javascript" src="js/shoutbox.js"></script> 
+<script type='text/javascript'> 
+
+function soloNumeros(evt){
+//asignamos el valor de la tecla a keynum
+if(window.event){// IE
+keynum = evt.keyCode;
+}else{
+keynum = evt.which;
+}
+//comprobamos si se encuentra en el rango
+if(keynum>47 && keynum<58 || keynum == 8){
+return true;
+}else{
+return false;
+}
+}
+</script> 
+<script type='text/javascript'> 
+ 
+function letras(evt){
+//asignamos el valor de la tecla a keynum
+if(window.event){// IE
+keynum = evt.keyCode;
+}else{
+keynum = evt.which;
+}
+//comprobamos si se encuentra en el rango
+if((keynum<97 || keynum>122 ) ){
+if(keynum==8){
+return true;
+
+}else
+return false;
+
+}else{
+return true;
+}
+}
+</script> 
+
+</body>
+
+</html>
