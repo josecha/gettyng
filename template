@@ -1,0 +1,388 @@
+<?php
+
+class template {
+
+  private $title = '';
+	private $headeraddin_html = '';
+	private $footeraddin_html = '';
+	private $body_html = '';
+	private $mainnavsection = '';
+	private $cssname = '';
+	private $metadesc = '';
+	private $metakeyword = '';
+	private $googanalytics_page = '';
+	private $showsearch = false;
+	private $showpopular = false;
+	private $showorderprocess = false;
+	private $hoursaddinhtml = '';
+	private $menubasketaddinhtml = '';
+	private $breadcrumbs = array();
+	private $usesecure = false;
+
+	public function settitle($title) {
+		$this->title = $title;
+	}
+
+	public function setheaderaddinhtml($headeraddinhtml) {
+		$this->headeraddin_html = $headeraddinhtml;
+	}
+
+	public function setfooteraddinhtml($footeraddinhtml) {
+		$this->footeraddin_html = $footeraddinhtml;
+	}
+
+	public function setmainnavsection($mainnavsection) {
+		$this->mainnavsection = $mainnavsection;
+	}
+
+	public function setbodyhtml($body_html) {
+		$this->body_html = $body_html;
+	}
+
+	public function setcssname($cssname) {
+		$this->cssname = $cssname;
+	}
+
+	public function setmetadesc($metadesc) {
+		$this->metadesc = $metadesc;
+	}
+
+	public function setmetakeyword($metakeyword) {
+		$this->metakeyword = $metakeyword;
+	}
+
+	public function setheaderblock($headerblock) {
+		$this->headerblock = $headerblock;
+	}
+
+	public function setgooganalyticspage($page) {
+		$this->googanalytics_page = $page;
+	}
+
+	public function setshowsearch($showsearch) {
+		$this->showsearch = $showsearch;
+	}
+
+	public function setshowpopular($showpopular) {
+		$this->showpopular = $showpopular;
+	}
+
+	public function sethoursaddinhtml($hoursaddinhtml) {
+		$this->hoursaddinhtml = $hoursaddinhtml;
+	}
+
+	public function setmenubasketaddinhtml($menubasketaddinhtml) {
+		$this->menubasketaddinhtml = $menubasketaddinhtml;
+	}
+
+	public function setshoworderprocess($showorderprocess) {
+		$this->showorderprocess = $showorderprocess;
+	}
+
+	public function setbreadcrumbs($breadcrumbs) {
+		$this->breadcrumbs = $breadcrumbs;
+	}
+
+	public function setusesecure($usesecure) {
+		$this->usesecure = $usesecure;
+	}
+
+	public function generatehtml() {
+		global $cfg, $current_page, $db, $tbl, $mas;
+
+		if ($this->usesecure) {
+			$link_base_path = $cfg['site_https_url'];
+		} else {
+			$link_base_path = navfr::base_path();
+		}
+
+		$link_base_path = htmlentities($link_base_path);
+
+		$current_path = appgeneral::current_path();
+
+		$titleh = htmlentities($this->title);
+
+		if ($this->cssname) {
+			$css_name = $this->cssname;
+		} else {
+
+			/*
+			//CSS Page Name
+			$css_name = $current_path;
+			$css_name = str_replace('/', '-', $css_name);
+			$css_name = ($css_name == '-') ? 'home' : $css_name;
+			if (preg_match("/(.*)\-$/", $css_name, $matches)) {
+				$css_name = $matches[1];
+			}
+			*/
+
+			$css_name = $current_page;
+
+		}
+
+		//Header navigation
+		$links = array(
+			'home' => array(
+				'link' => navfr::link(array()),
+				'name' => 'Inicio',
+				'nofollow' => false,
+			),
+			'takeaway' => array(
+				'link' => navfr::link(array('restaurant')),
+				'name' => 'Restaurantes',
+				'nofollow' => false,
+			),
+			'faq' => array(
+				'link' => navfr::link(array('faq')),
+				'name' => 'Preguntas',
+				'nofollow' => false,
+			),
+			'contact-us' => array(
+				'link' => navfr::link(array('contact-us')),
+				'name' => 'Contacto',
+				'nofollow' => false,
+			),
+			'about-us' => array(
+				'link' => navfr::link(array('about-us')),
+				'name' => 'Acerca de',
+				'nofollow' => false,
+			),
+		);
+		$nav_header_html = template_lib::header_navigation_html($links, $this->mainnavsection);
+
+		//<a href="http://validator.w3.org/check/referer">CHECK</a>
+
+		$curr_year = date('Y');
+
+		//Metatags
+		$metatags = array(
+			'description' => $this->metadesc,
+			'keywords' => $this->metakeyword,
+		);
+		$metatags_html = template_lib::metatags_html($metatags);
+
+		//If show search takeaways in postcode
+		if ($this->showsearch) {
+			$search_html = template_lib::restaurant_search_html();
+		
+			
+			
+		} else {
+			$search_html = '';
+		}
+
+		//If show popular takeaways
+		if ($this->showpopular) {
+			$popular_restaurants = template_lib::popular_restaurants_html();
+		} else {
+			$popular_restaurants = '';
+		}
+
+		if ($current_page == 'home') {
+		$mas = <<<EOHTML
+                         <br><br>
+                        <div class="buble">
+			<blockquote class="example-obtuse">
+				<p class="cufonw">El otro dÌa pedÌ mi comida a travÈs de gettyng y llegÛ todo perfecto, te lo recomiendo !</p>
+			</blockquote>
+			<span class="cufon">@Sonia B.</span>
+		</div>	
+		           
+				
+
+EOHTML;
+    
+		} else {
+		$mas = '';
+		}
+		
+		if ($this->showorderprocess) {
+
+			$orderprocess_html = <<<EOHTML
+
+				<div class="order_process">
+
+					<div class="info">
+
+						<h2>Pide en <span class="larger">3</span> Pasos</h2>
+
+						<!--//<img src="{$link_base_path}resources/template/sidepanel/numbers.gif" class="numbers"/>//-->
+
+						<h3 class="process_list">
+							<span>1.- Pon tu codigo postal</span></br>
+							<span>2.- Escoje Restaurante</span></br>
+							<span>3.- Seleciona tu pedido</span>
+						</h3>
+
+						<div class="clear"></div>
+
+					</div>
+					
+				</div>
+				
+				{$mas}
+EOHTML;
+
+   
+				
+
+		} else {
+			$orderprocess_html = '';
+		}
+
+		//<link rel="shortcut icon" href="{$cfg['site_url']}favicon.ico" type="image/x-icon" />
+
+		$googanalytics_page = ($this->googanalytics_page) ? '"' . $this->googanalytics_page . '"' : '';
+		$analytics_code_html = template_lib::google_analytics_html($googanalytics_page);
+
+		$site_nameh = htmlentities($cfg['site_name']);
+
+		if ($current_page == 'home') {
+			$logo_html = <<<EOHTML
+<h1><a href="{$cfg['site_url']}" class="logo"><span>{$site_nameh}</span></a></h1>
+EOHTML;
+
+
+    
+		} else {
+			$logo_html = <<<EOHTML
+<a href="{$cfg['site_url']}" class="logo"><span>{$site_nameh}</span></a>
+EOHTML;
+		}
+
+		//Breadcrumbs
+		$breadcrumbs_html = template_lib::breadcrumbs($this->breadcrumbs);
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+<title>{$titleh}</title>
+
+
+<link rel="stylesheet" type="text/css" href="{$link_base_path}{$cfg['theme_resources_path']}template/css/style.css" />
+<link rel="shortcut icon" href="/images/o_favi.ico" type="image/x-icon" />
+<!--[if gte IE 9]>
+<script type="text/javascript">
+Cufon.set('engine', 'canvas');
+</script>
+<![endif]-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="/js/cufon-yui.js" type="text/javascript"></script>
+<script src="/js/font.js" type="text/javascript"></script>
+<script src="/js/cufon-config.js" type="text/javascript"></script>
+
+
+
+
+
+<!--[if IE 6]>
+<link rel="stylesheet" type="text/css" href="{$link_base_path}{$cfg['theme_resources_path']}template/css/ie6.css" />
+<![endif]-->
+
+<script src="{$link_base_path}{$cfg['theme_resources_path']}template/javascript/library.js" type="text/javascript"></script>
+
+{$metatags_html}
+
+{$cfg['headeraddin_html']}
+
+{$this->headeraddin_html}
+
+</head>
+<body>
+
+<div class="page-{$css_name}">
+
+ <div class="section">
+  <div id="header" class="header">
+  
+  
+	<div class="headerimage">
+	<a href="/index.html" title="Todo Colima quiere estar en Gettyng.com"><img src="/images/logob.png"/></a>
+	</div>
+    <div class="navigation">
+
+				<ul>
+{$nav_header_html}
+				</ul>
+
+			</div>
+
+</div></div>
+<div id="container" class="container">
+  
+ <div id="muro" class="d_envio">
+	<div class="envio_i">
+  		{$this->body_html}
+
+	  </div>
+  </div>
+                        
+ <div id="gritalo" class="c_envio"> 
+	<div class="envio_i">  
+				<div class="sidepanel">
+
+		
+{$this->hoursaddinhtml}
+
+{$this->menubasketaddinhtml}
+
+				
+
+{$popular_restaurants}	
+
+{$search_html}
+
+{$orderprocess_html}
+
+				</div>
+							<div class="clear"></div>
+
+	</div>
+</div>
+
+</div>
+
+	<div id="footer" class="footer"> <ul>
+        
+		{$this->footeraddin_html}
+
+      </ul> 
+  </div> 	
+
+</div>	
+
+{$analytics_code_html}
+
+<!-- begin olark code -->
+<!--
+<script type='text/javascript'>/*{literal}<![CDATA[*/window.olark||(function(i){var e=window,h=document,a=e.location.protocol=="https:"?"https:":"http:",g=i.name,b="load";(function(){e[g]=function(){(c.s=c.s||[]).push(arguments)};var c=e[g]._={},f=i.methods.length; while(f--){(function(j){e[g][j]=function(){e[g]("call",j,arguments)}})(i.methods[f])} c.l=i.loader;c.i=arguments.callee;c.f=setTimeout(function(){if(c.f){(new Image).src=a+"//"+c.l.replace(".js",".png")+"&"+escape(e.location.href)}c.f=null},20000);c.p={0:+new Date};c.P=function(j){c.p[j]=new Date-c.p[0]};function d(){c.P(b);e[g](b)}e.addEventListener?e.addEventListener(b,d,false):e.attachEvent("on"+b,d); (function(){function l(j){j="head";return["<",j,"></",j,"><",z,' onl'+'oad="var d=',B,";d.getElementsByTagName('head')[0].",y,"(d.",A,"('script')).",u,"='",a,"//",c.l,"'",'"',"></",z,">"].join("")}var z="body",s=h[z];if(!s){return setTimeout(arguments.callee,100)}c.P(1);var y="appendChild",A="createElement",u="src",r=h[A]("div"),G=r[y](h[A](g)),D=h[A]("iframe"),B="document",C="domain",q;r.style.display="none";s.insertBefore(r,s.firstChild).id=g;D.frameBorder="0";D.id=g+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){D.src="javascript:false"} D.allowTransparency="true";G[y](D);try{D.contentWindow[B].open()}catch(F){i[C]=h[C];q="javascript:var d="+B+".open();d.domain='"+h.domain+"';";D[u]=q+"void(0);"}try{var H=D.contentWindow[B];H.write(l());H.close()}catch(E){D[u]=q+'d.write("'+l().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}c.P(2)})()})()})({loader:(function(a){return "static.olark.com/jsclient/loader0.js?ts="+(a?a[1]:(+new Date))})(document.cookie.match(/olarkld=([0-9]+)/)),name:"olark",methods:["configure","extend","declare","identify"]});
+/* custom configuration goes here (www.olark.com/documentation) */
+olark.identify('1284-162-10-2694');/*]]>{/literal}*/
+</script>
+-->
+<!-- end olark code -->
+</body>
+</html>
+EOHTML;
+
+		return $page_html;
+
+	}
+
+	public function display() {
+
+		//Generate html
+		$page_html = $this->generatehtml();
+
+		//Display page
+		template_lib::display_headers();
+		template_lib::display($page_html);
+
+	}
+
+}
+
+?>
